@@ -9,7 +9,3 @@ For instance, type word `lol`, you can get a smile.
 Meme files are located in `/var/meme`
 ## quit
 Double `ctrl+c`
-
-
-# tinyIM
-a tiny IM based on tmux
