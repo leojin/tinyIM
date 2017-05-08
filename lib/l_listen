@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+PATH_ROOT="$(cd `dirname $0`/..; pwd)"
+
+PATH_ROOM="${PATH_ROOT}/var/room"
+
+pRoom=$1
+
+logFile="${PATH_ROOM}/${pRoom}"
+
+if [ ! -f $logFile ]; then
+    touch $logFile
+fi
+
+tail -f $logFile

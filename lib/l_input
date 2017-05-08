@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+PATH_ROOT="$(cd `dirname $0`/..; pwd)"
+
+PATH_MEME="${PATH_ROOT}/var/meme"
+PATH_ROOM="${PATH_ROOT}/var/room"
+
+NAME_SYS="---system---"
+
+pRoom=$1
+
+logFile="${PATH_ROOM}/${pRoom}"
+
+while true
+do
+    read -p "Input Your Name: " name
+    if [ "" = "${name}" ]; then
+        clear
+        continue
+    elif [ "${NAME_SYS}" = "${name}" ]; then
+        clear
+        continue
+    else
+        pUser=$name
+        echo "["`date '+%Y-%m-%d %H:%M:%S'`"][${NAME_SYS}] Welcome ${pUser}!" >> $logFile
+        clear
+        break
+    fi
+    clear
+done
+
+while true
+do
+    read -p "Input Your Msg: " msg
+    msgPrefix="["`date '+%Y-%m-%d %H:%M:%S'`"][${pUser}]"
+
+    if [ "" = "${msg}" ]; then
+        clear
+        continue
+    fi
+
+    if [ -f "${PATH_MEME}/${msg}" ]; then
+        echo "${msgPrefix}" >> $logFile
+        echo -e "`cat \"${PATH_MEME}/${msg}\"`" >> $logFile
+    else
+        echo "${msgPrefix} ${msg}" >> $logFile
+    fi
+    clear
+done

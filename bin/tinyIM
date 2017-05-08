@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+PATH_ROOT="$(cd `dirname $0`/..; pwd)"
+
+PATH_LIB="${PATH_ROOT}/lib"
+
+if [ 0 = $# ]; then
+    pRoom="default"
+elif [ "" = $1 ]; then
+    pRoom="default"
+else
+    pRoom=$1
+fi
+
+session_name="tinyIM_session_"`date "+%s"`
+
+tmux new-session -s $session_name -n "tinyIM" -d "${PATH_LIB}/l_listen \"${pRoom}\""
+tmux split-window -l 10 -d "${PATH_LIB}/l_input \"${pRoom}\""
+tmux select-pane -D
+tmux -2 attach-session -t "$session_name"
